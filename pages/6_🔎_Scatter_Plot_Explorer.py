@@ -28,7 +28,7 @@ with st.expander("LEARN: What is a Scatter Plot?"):
     - **Key Features:**
         - **Correlation:** The pattern of the dots tells you about the relationship. An upward trend from left-to-right is a *positive correlation*. A downward trend is a *negative correlation*. No clear pattern means no correlation.
         - **Regression Line:** We often add a line of best fit (`regplot` in Seaborn does this automatically) to summarize the trend.
-        - **Correlation Coefficient (r):** This is a value between -1 and 1 that quantifies the strength of the linear relationship. A value near 1 or -1 is a strong correlation, while a value near 0 is a weak one.
+        - **`hue`:** You can color the points by a third, categorical variable to see if the correlation holds true for different subgroups.
     """)
 
 # --- Control Panel and Plot ---
@@ -41,32 +41,34 @@ with col1:
     st.subheader("Parameters")
     x_gene = st.selectbox("X-axis Gene:", gene_options, index=3) # Default Gene_D
     y_gene = st.selectbox("Y-axis Gene:", gene_options, index=4) # Default Gene_E
-    hue_choice = st.selectbox("Color points by (`hue`):", (None, 'Treatment_Group'), index=0)
+    
+    # *** THE FIX IS HERE: Add 'Cancer_Subtype' to the hue options ***
+    hue_choice = st.selectbox("Color points by (`hue`):", (None, 'Treatment_Group', 'Cancer_Subtype'), index=0)
 
     # Calculate correlation for info box
     try:
         r_val, p_val = stats.pearsonr(df[x_gene], df[y_gene])
-        st.info(f"The Pearson correlation coefficient (r) between these two genes is **{r_val:.3f}**.")
+        st.info(f"The overall Pearson correlation coefficient (r) between these two genes is **{r_val:.3f}**.")
     except ValueError:
         st.warning("Could not calculate correlation.")
         
 with col2:
     st.subheader("Interactive Plot")
     fig, ax = plt.subplots(figsize=(8, 6))
-    sns.scatterplot(
-        data=df, 
-        x=x_gene, 
-        y=y_gene,
-        hue=hue_choice,
-        ax=ax
-    )
+    
+    # Use different plot functions based on whether hue is selected
+    if hue_choice:
+        sns.scatterplot(data=df, x=x_gene, y=y_gene, hue=hue_choice, ax=ax, alpha=0.8)
+    else:
+        sns.regplot(data=df, x=x_gene, y=y_gene, ax=ax, line_kws={"color":"red"})
+
     ax.set_title(f"Relationship between {x_gene} and {y_gene}", fontsize=16)
     st.pyplot(fig)
 
 
 # --- Coding Sandbox ---
 st.header("DISCOVER: The Coding Sandbox")
-st.info("**Scientific Question:** Confirm that `Gene_D` and `Gene_E` are positively correlated. Create a regression plot (not just a scatter plot) and add a title that automatically displays the calculated Pearson 'r' value.")
+st.info("**Scientific Question:** Create a regression plot for `Gene_D` vs. `Gene_E`, but color the individual points by `Cancer_Subtype`. Does the correlation seem to exist within each subtype?")
 
 code_template = f"""
 import seaborn as sns
@@ -79,21 +81,28 @@ fig, ax = plt.subplots(figsize=(8, 6))
 x_axis_gene = 'Gene_D'
 y_axis_gene = 'Gene_E'
 
-# 1. Use sns.regplot() to show a regression line
+# 1. Use sns.scatterplot to color by 'Cancer_Subtype'
+sns.scatterplot(
+    data=df,
+    x=x_axis_gene,
+    y=y_axis_gene,
+    hue='Cancer_Subtype',
+    palette='bright', # Try different palettes!
+    ax=ax
+)
+
+# 2. You can also add an overall regression line on top!
 sns.regplot(
     data=df,
     x=x_axis_gene,
     y=y_axis_gene,
-    line_kws={{"color": "red"}}, # Make the line red
+    scatter=False, # Set scatter=False so it doesn't plot the points again
+    color='black',
     ax=ax
 )
 
-# 2. Calculate the correlation coefficient
-r_val, _ = stats.pearsonr(df[x_axis_gene], df[y_axis_gene])
-
-# 3. Create a dynamic title using an f-string
-title = f"Correlation of {{x_axis_gene}} and {{y_axis_gene}}\\nPearson r = {{r_val:.3f}}"
-ax.set_title(title, fontsize=16)
+# 3. Add a title
+ax.set_title(f"Correlation colored by Subtype", fontsize=16)
 
 st.pyplot(fig)
 """

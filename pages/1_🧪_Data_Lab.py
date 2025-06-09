@@ -7,7 +7,7 @@ st.set_page_config(layout="wide")
 st.title("🧪 The Data Lab")
 st.markdown("All great analysis starts with data. Here, you can generate your own simulated dataset to explore in the other modules. The data you generate here will be available across all pages of the app.")
 
-# --- Data Generation Function (same as before) ---
+# --- Data Generation Function (CORRECTED VERSION) ---
 @st.cache_data
 def generate_data(treatment_effect, survival_benefit, correlation_strength, num_hits, random_seed):
     """Generates simulated gene expression, clinical, and differential expression data."""
@@ -16,7 +16,14 @@ def generate_data(treatment_effect, survival_benefit, correlation_strength, num_
     # --- Dataset 1: Gene Expression & Clinical Data ---
     num_samples = 100
     genes = [f'Gene_{chr(65+i)}' for i in range(10)]
-    df_meta = pd.DataFrame({'Sample_ID': [f'Sample_{i+1}' for i in range(num_samples)], 'Treatment_Group': np.random.choice(['Control', 'Treated'], num_samples, p=[0.5, 0.5])})
+    
+    # *** THE FIX IS HERE: Added 'Cancer_Subtype' to the DataFrame creation ***
+    df_meta = pd.DataFrame({
+        'Sample_ID': [f'Sample_{i+1}' for i in range(num_samples)],
+        'Treatment_Group': np.random.choice(['Control', 'Treated'], num_samples, p=[0.5, 0.5]),
+        'Cancer_Subtype': np.random.choice(['Subtype_A', 'Subtype_B', 'Subtype_C'], num_samples, p=[0.4, 0.35, 0.25])
+    })
+    
     expression_data = np.log2(np.random.uniform(10, 100, size=(num_samples, len(genes))))
     df_expr = pd.DataFrame(expression_data, columns=genes)
     df_full = pd.concat([df_meta, df_expr], axis=1)

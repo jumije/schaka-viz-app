@@ -68,7 +68,7 @@ with col2:
 st.header("DISCOVER: The Coding Sandbox")
 st.markdown("Now it's your turn! Modify the code below to answer the scientific question.")
 
-st.info("**Scientific Question:** Can you generate a heatmap that clearly separates the 'Treated' and 'Control' groups and uses the 'viridis' colormap?")
+st.info("**Scientific Question:** Can you generate a heatmap that clearly separates the 'Treated' and 'Control' groups and uses the 'coolwarm' colormap?")
 
 code_template = """
 # Tip: You can access the gene expression data via the `gene_data` DataFrame.

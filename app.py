@@ -6,6 +6,19 @@ st.set_page_config(
     layout="wide"
 )
 
+# --- HIDE THE MAIN PAGE FROM THE SIDEBAR ---
+# This is a small CSS trick to hide the first list item (which is this main page)
+# in the sidebar navigation. This makes the app feel cleaner.
+st.markdown("""
+<style>
+    [data-testid="stSidebarNav"] ul li:first-child {
+        display: none;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+
+# --- WELCOME PAGE CONTENT (The rest is the same as before) ---
 st.title("Welcome to the Bioinformatics Learning Lab! 🔬")
 
 st.markdown("""
