@@ -21,16 +21,25 @@ if 'df_full' not in st.session_state:
 df = st.session_state['df_full']
 gene_options = [col for col in df.columns if col.startswith('Gene_')]
 
-# --- Guided Tour Expander ---
+# --- Guided Tour Expander (UPDATED) ---
 with st.expander("LEARN: What is a Scatter Plot?"):
     st.markdown("""
     A **scatter plot** is a fundamental graph for visualizing the relationship between two numerical variables. Each dot on the plot represents a single data point (in our case, a single patient).
 
-    - **When to Use:** To see if two variables are correlated. For example, "When the expression of Gene X goes up, does the expression of Gene Y also go up?"
-    - **Key Features:**
-        - **Correlation:** The pattern of the dots tells you about the relationship. An upward trend from left-to-right is a *positive correlation*. A downward trend is a *negative correlation*. No clear pattern means no correlation.
-        - **Regression Line:** We often add a line of best fit (`regplot` in Seaborn does this automatically) to summarize the trend.
-        - **`hue`:** You can color the points by a third, categorical variable to see if the correlation holds true for different subgroups.
+    #### How to Read This Plot:
+    1.  **Check the Axes:** Identify what variable is on the X-axis and what is on the Y-axis.
+    2.  **Look for a Trend:** Do the dots seem to form a pattern?
+        -   **Positive Correlation:** The pattern goes up from left to right. As X increases, Y tends to increase.
+        -   **Negative Correlation:** The pattern goes down from left to right. As X increases, Y tends to decrease.
+        -   **No Correlation:** The dots look like a random cloud with no clear trend.
+    3.  **Examine the Regression Line:** The line drawn through the points (`sns.regplot` does this) shows the best-fit summary of the linear trend. The shaded area around it is the 95% confidence interval for this line.
+    4.  **Check the 'r' value:** The Pearson correlation coefficient (r) is a number from -1 to 1 that quantifies the strength of the *linear* relationship. The closer to 1 or -1, the stronger the correlation.
+
+    ---
+    #### Dive Deeper (External Links):
+    - 🔗 **[Seaborn `scatterplot` Documentation](https://seaborn.pydata.org/generated/seaborn.scatterplot.html):** The official documentation for the function we use. See all the possible parameters you can change!
+    - 🔗 **[Seaborn `regplot` Documentation](https://seaborn.pydata.org/generated/seaborn.regplot.html):** The official documentation for the function we use. See all the possible parameters you can change!
+    - 🔗 **[A simple explanation of Pearson Correlation](https://www.scribbr.com/statistics/pearson-correlation-coefficient/):** A great article explaining what the 'r' value means.
     """)
 
 # --- Control Panel and Plot ---

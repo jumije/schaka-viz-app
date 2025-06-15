@@ -19,17 +19,28 @@ if 'df_volcano' not in st.session_state:
 # Load data from session state
 df_volcano = st.session_state['df_volcano']
 
-# --- Guided Tour Expander ---
+# --- Guided Tour Expander (UPDATED) ---
 with st.expander("LEARN: What is a Volcano Plot?"):
     st.markdown("""
-    A **volcano plot** is a specialized scatter plot used to visualize the results of high-throughput experiments, like a differential gene expression analysis. It simultaneously shows two key metrics:
+    A **volcano plot** is a type of scatter plot used to quickly identify meaningful data points from a large number of tests. It's the standard for visualizing differential expression results.
 
-    - **X-axis (log2 Fold Change):** This measures the *magnitude* of change. A positive value means the gene is upregulated; a negative value means it's downregulated.
-    - **Y-axis (-log10 P-value):** This measures the *statistical significance* of that change. A higher value on this axis means the change is less likely to be due to random chance.
+    #### How to Read This Plot:
+    1.  **The X-Axis (log2 Fold Change):** This measures *how much* a gene's expression changed.
+        -   Values > 0 mean the gene was **upregulated** (more expression in the treated group).
+        -   Values < 0 mean the gene was **downregulated**.
+        -   The further from zero, the larger the change.
+    2.  **The Y-Axis (-log10 P-value):** This measures the *statistical significance* of the change. A higher value means the result is less likely due to random chance (i.e., more significant).
+    3.  **The Quadrants:** The plot is divided by threshold lines into important zones:
+        -   **Top Right:** Highly upregulated and significant genes (our best "hits").
+        -   **Top Left:** Highly downregulated and significant genes (also great "hits").
+        -   **Bottom/Center:** Genes that are not statistically significant or did not change much.
 
-    - **When to Use:** It's the standard plot for visualizing which genes are the most promising "hits" from an experiment—those that are both statistically significant (high up) and have a large magnitude of change (far to the left or right).
-    - **Pitfalls:** The cutoff lines for what is considered "significant" are chosen by the researcher. It's important to justify and clearly show these thresholds.
+    ---
+    #### Dive Deeper (External Links):
+    - 🔗 **[BiostatSQUID - Volcano Plots](https://biostatsquid.com/volcano-plot/):** A great introduction to volcano plots, including how to interpret them and why they are useful.
+    - 🔗 **[Seaborn `scatterplot` Documentation](https://seaborn.pydata.org/generated/seaborn.scatterplot.html):** Since there's no built-in `volcanoplot` function, we build it ourselves using a standard scatter plot!
     """)
+
 
 # --- Control Panel and Plot ---
 st.header("EXPERIMENT: The Control Panel")

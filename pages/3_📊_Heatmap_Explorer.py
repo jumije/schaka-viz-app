@@ -20,16 +20,21 @@ if 'df_full' not in st.session_state:
 df = st.session_state['df_full']
 gene_data = df[[col for col in df.columns if col.startswith('Gene_')]].T
 
-# --- Guided Tour Expander ---
+# --- Guided Tour Expander (UPDATED) ---
 with st.expander("LEARN: What is a Heatmap?"):
     st.markdown("""
-    A **heatmap** is a graphical representation of data where values in a matrix are represented as colors. It's fantastic for visualizing large, complex datasets like gene expression at a glance.
-    
-    - **When to Use:** To see the "big picture" and find patterns or clusters in your data. In genomics, we use it to see which genes behave similarly across which samples.
-    - **Key Features:**
-        - **Clustering:** It automatically groups similar rows (genes) and similar columns (samples) together, revealing relationships.
-        - **Scaling (Z-score):** To make patterns visible, we often scale the data for each gene. A Z-score tells us how many standard deviations a value is from the mean of its gene. Red might mean "higher than average for this gene," and blue "lower than average."
-    - **Pitfalls:** Be careful with color choice! A bad colormap can hide or misrepresent the story.
+    A **heatmap** visualizes a matrix as a grid of colors. It's especially powerful when combined with clustering to find patterns in large datasets like gene expression.
+
+    #### How to Read This Plot:
+    1.  **The Grid:** Each cell in the grid represents a single value (e.g., the expression of one gene in one sample).
+    2.  **The Colors:** The color of each cell is mapped to its value. You must check the color bar legend to see what the colors mean (e.g., yellow is high, purple is low).
+    3.  **The Dendrograms (Trees):** These trees on the rows and columns show the results of *hierarchical clustering*. Samples (or genes) that are grouped closely together on a branch are more similar to each other than those on distant branches. The primary goal is often to see if samples cluster by a known category, like 'Treated' vs. 'Control'.
+    4.  **Data Scaling:** To make patterns visible, we almost always scale the data by gene (`z_score=0`). This means the colors represent the relative expression for that gene (e.g., "high for *this gene's* average"), not the absolute expression value.
+
+    ---
+    #### Dive Deeper (External Links):
+    - 🔗 **[Seaborn `clustermap` Documentation](https://seaborn.pydata.org/generated/seaborn.clustermap.html):** This is the function we use. It combines a heatmap with clustering.
+    - 🔗 **[The Python Graph Gallery - Heatmap](https://www.python-graph-gallery.com/heatmap/):** A great resource with many examples and explanations.
     """)
 
 # --- Control Panel and Plot ---

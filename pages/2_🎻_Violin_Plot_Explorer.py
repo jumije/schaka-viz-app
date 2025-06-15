@@ -18,13 +18,23 @@ df = st.session_state['df_full']
 gene_options = [col for col in df.columns if col.startswith('Gene_')]
 subtype_options = df['Cancer_Subtype'].unique().tolist()
 
+# --- Guided Tour Expander (UPDATED) ---
 with st.expander("LEARN: What is a Violin Plot?"):
     st.markdown("""
-    A **violin plot** compares a numerical distribution across different categories. It's a hybrid of a box plot and a density plot, showing more about the data's shape.
-    - **Key Features:**
-        - **`hue`:** Adds a third variable using color for subgroup analysis.
-        - **`split=True`:** Merges two `hue` categories into one violin for direct comparison.
-        - **`inner`:** Controls what is shown inside the violin (e.g., 'box', 'quartile', 'point').
+    A **violin plot** compares a numerical distribution across different categories. It is a hybrid of a box plot and a density plot, showing more about the data's shape and distribution.
+
+    #### How to Read This Plot:
+    1.  **The Shape (Violin):** The width of the violin represents the density of data points at that value. A fatter section means more data points are concentrated there. This helps you see if the data is skewed or has multiple peaks (is "bimodal").
+    2.  **The Inner Plot:** The small plot inside the violin provides summary statistics.
+        -   `'box'`: Shows a miniature box-and-whisker plot with the median and interquartile range (IQR).
+        -   `'quartile'`: Shows the three quartiles (25th, 50th, 75th percentiles).
+        -   `'point'` or `'stick'`: Show every single data point.
+    3.  **Comparing Violins:** You compare the plots for different categories (e.g., 'Treated' vs. 'Control'). Look for differences in their median, their overall shape, and where they are located on the Y-axis.
+
+    ---
+    #### Dive Deeper (External Links):
+    - 🔗 **[Seaborn `violinplot` Documentation](https://seaborn.pydata.org/generated/seaborn.violinplot.html):** The official documentation. Explore parameters like `hue`, `split`, and `inner`.
+    - 🔗 **[The Python Graph Gallery - Violin Plot](https://www.python-graph-gallery.com/violin-plot/):** Many excellent and easy-to-understand examples.
     """)
 
 st.header("EXPERIMENT: The Control Panel")

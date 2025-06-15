@@ -19,16 +19,22 @@ if 'df_full' not in st.session_state:
 # Load data from session state
 df = st.session_state['df_full']
 
-# --- Guided Tour Expander (Corrected) ---
+# --- Guided Tour Expander (UPDATED) ---
 with st.expander("LEARN: What is a Survival Plot?"):
     st.markdown("""
-    A **Kaplan-Meier survival plot** is one of the most important visualizations in clinical research. It's used to estimate and plot the probability of survival over time.
-    
-    - **When to Use:** To visualize "time-to-event" data. It is perfectly suited to answer questions like, "Do patients who received Drug A survive longer than patients who received a placebo?"
-    - **Key Features:**
-        - **Step-wise Curve:** The curve goes down each time an "event" (e.g., death) occurs.
-        - **Censoring (the small ticks):** This is a crucial concept. A tick indicates that a patient left the study at that time point and was still alive (e.g., the study ended). We can turn these on/off with the `show_censors` parameter.
-    - **Library:** We use a specialized library called `lifelines` for this type of analysis.
+    A **Kaplan-Meier survival plot** estimates and visualizes survival probability over time. It is one of the most important graphs in clinical research.
+
+    #### How to Read This Plot:
+    1.  **The Y-Axis:** Represents the estimated probability of survival. It starts at 1.0 (100%).
+    2.  **The X-Axis:** Represents time (e.g., days, months) from the start of the study.
+    3.  **The Curve:** The curve is a step function. It goes down each time an "event" (e.g., death) is recorded for a patient in that group. A curve that stays higher for longer represents better survival outcomes.
+    4.  **The Censor Marks (Ticks):** These vertical ticks are critical. They mark the time when a patient left the study, and we know they were *still alive*. This could be because the study ended. The Kaplan-Meier model correctly uses this information so as not to bias the results.
+    5.  **The Confidence Interval:** The shaded area shows the 95% confidence interval. It represents the uncertainty in our survival estimate. If the shaded areas for two groups do not overlap, it's strong evidence that the difference in survival between them is statistically significant.
+
+    ---
+    #### Dive Deeper (External Links):
+    - 🔗 **[`lifelines` KaplanMeierFitter Documentation](https://lifelines.readthedocs.io/en/latest/fitters/univariate/KaplanMeierFitter.html):** The official documentation for the tool we use.
+    - 🔗 **[DATAtab: Kaplan-Meier-Curve](https://www.youtube.com/watch?v=L_ziqYhksG8):** A clear video explanation of the plot.
     """)
 
 # --- Control Panel and Plot (Corrected) ---
