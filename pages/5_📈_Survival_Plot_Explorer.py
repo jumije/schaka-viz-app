@@ -2,11 +2,13 @@ import streamlit as st
 import pandas as pd
 from lifelines import KaplanMeierFitter
 import matplotlib.pyplot as plt
+from sidebar_datainput import show_sidebar_data_input
 from io import StringIO
 import sys
 
 # Page configuration
 st.set_page_config(layout="wide")
+show_sidebar_data_input() # This line adds the sidebar to this page
 st.title("📈 Kaplan-Meier Survival Plot Explorer")
 
 # Check if data exists in session state

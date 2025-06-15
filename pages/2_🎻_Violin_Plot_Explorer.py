@@ -2,10 +2,12 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sidebar_datainput import show_sidebar_data_input
 from io import StringIO
 import sys
 
 st.set_page_config(layout="wide")
+show_sidebar_data_input() # This line adds the sidebar to this page
 st.title("2. Violin Plot")
 
 if 'df_full' not in st.session_state:
