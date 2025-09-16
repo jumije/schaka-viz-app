@@ -34,16 +34,19 @@ with st.expander("📋 Click here to learn about the **Data Lab** and the **Data
     Represents data for 100 patients, including their treatment group, cancer subtype, gene expression levels, and survival outcome. This is used for the Scatter, Violin, Heatmap, and Survival plots.
 
     - **Patient Info (Metadata):**
+                
         - `Sample_ID`: A unique ID for each patient.
         - `Treatment_Group`: Whether the patient received the new drug (`Treated`) or a placebo (`Control`).
         - `Cancer_Subtype`: The type of cancer the patient has (`Subtype_A`, `B`, or `C`).
 
                 
     - **Molecular Data:**
+                
         - `Gene_A` to `Gene_J`: The measured expression level for 10 different genes. A higher number means the gene is more "active." The values are on a log2 scale, which is common in biology.
 
                 
     - **Clinical Outcome:**
+                
         - `Survival_Time_days`: The number of days the patient was followed in the study.
         - `Event_Status`: The patient's status at the end of their follow-up. `1` means the event (death) occurred. `0` means the patient was **censored** (e.g., the study ended and they were still alive). This is crucial for survival analysis.
     
