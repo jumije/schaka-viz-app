@@ -34,19 +34,16 @@ with st.expander("📋 Click here to learn about the **Data Lab** and the **Data
     Represents data for 100 patients, including their treatment group, cancer subtype, gene expression levels, and survival outcome. This is used for the Scatter, Violin, Heatmap, and Survival plots.
 
     - **Patient Info (Metadata):**
-                
         - `Sample_ID`: A unique ID for each patient.
         - `Treatment_Group`: Whether the patient received the new drug (`Treated`) or a placebo (`Control`).
         - `Cancer_Subtype`: The type of cancer the patient has (`Subtype_A`, `B`, or `C`).
 
-                
+
     - **Molecular Data:**
-                
         - `Gene_A` to `Gene_J`: The measured expression level for 10 different genes. A higher number means the gene is more "active." The values are on a log2 scale, which is common in biology.
 
-                
+
     - **Clinical Outcome:**
-                
         - `Survival_Time_days`: The number of days the patient was followed in the study.
         - `Event_Status`: The patient's status at the end of their follow-up. `1` means the event (death) occurred. `0` means the patient was **censored** (e.g., the study ended and they were still alive). This is crucial for survival analysis.
     
@@ -73,19 +70,19 @@ with st.expander("🎛️ Click here to learn about the **Data Lab** and the **P
         - **High Value:** Creates a large, obvious difference in expression between the 'Treated' and 'Control' groups. This will be very visible in the **Violin Plots** and **Heatmap**.
         - **Low Value:** Creates a subtle, small difference that might be hard to distinguish from random noise, which is more common with real-world data.
 
-                
+
     - **Survival Benefit:**
         - **What it controls:** How much longer, on average, the 'Treated' patients survive compared to the 'Control' patients.
         - **High Value:** Creates a large, clear separation between the two curves in the **Survival Plot**, indicating a very effective drug.
         - **Low Value (or 0):** The survival curves will be very close or overlapping, suggesting the drug has little to no effect on patient survival, even if it changes gene expression.
 
-                
+
     - **Gene Correlation:**
         - **What it controls:** The strength of the relationship between the expression of `Gene_D` and `Gene_E`.
         - **High Value (close to 1.0):** The points in the **Scatter Plot** will form a tight, clear line, simulating a strong biological co-regulation. The Pearson 'r' value will be high.
         - **Low Value (close to 0.0):** The points will look like a random cloud, simulating two unrelated genes. The Pearson 'r' value will be near zero.
 
-                
+
     - **Significant Genes:**
         - **What it controls:** The number of "hit" genes that are simulated to be significantly affected by the treatment.
         - **High Value:** Many genes will appear as significant (colored red and blue) in the **Volcano Plot**, simulating a drug with widespread, systemic effects.
