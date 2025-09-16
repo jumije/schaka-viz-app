@@ -12,8 +12,8 @@ show_sidebar_data_input()
 
 # --- Main Page Welcome Content ---
 st.title("Welcome to the Bioinformatics Learning Lab!")
-st.markdown("## A hands-on environment for your journey into cancer data analysis.")
 st.markdown("""
+A hands-on environment for your journey into cancer data analysis.
 In this interactive app, you will not just see visualizations — you will build, modify, and experiment with them yourself.
 
 ## How to Use This Lab:
@@ -59,7 +59,7 @@ with st.expander("🎛️ Click here to learn about the **Parameters** the Data 
     - **High Value:** Creates a large, obvious difference in expression between the 'Treated' and 'Control' groups. This will be very visible in the **Violin Plots** and **Heatmap**.
     - **Low Value:** Creates a subtle, small difference that might be hard to distinguish from random noise, which is more common with real-world data.
                 
-    ### Survival Benefit###
+    ### Survival Benefit
     - **What it controls:** How much longer, on average, the 'Treated' patients survive compared to the 'Control' patients.
     - **High Value:** Creates a large, clear separation between the two curves in the **Survival Plot**, indicating a very effective drug.
     - **Low Value (or 0):** The survival curves will be very close or overlapping, suggesting the drug has little to no effect on patient survival, even if it changes gene expression.
